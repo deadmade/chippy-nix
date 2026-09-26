@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chippy-src = {
-      url = "git+https://codeberg.org/ideumi/chippy?ref=refs/tags/V-1.1.2";
+      url = "git+https://codeberg.org/ideumi/chippy?ref=refs/tags/V-1.1.3";
       flake = false;
     };
     boxflinger = {
@@ -39,7 +39,7 @@
       forEachLinuxSystem = lib.genAttrs linuxSystems;
 
       versions = {
-        chippy = "1.1.2";
+        chippy = "1.1.3";
         boxflinger = "1.0.13";
         depthfinder = "1.0.16";
         dfn-mounter = "1.0.6";
