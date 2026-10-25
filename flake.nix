@@ -16,7 +16,7 @@
       flake = false;
     };
     dfn-mounter-src = {
-      url = "git+https://codeberg.org/ideumi/dfn-mounter?ref=refs/tags/V-1.0.6";
+      url = "git+https://codeberg.org/ideumi/dfn-mounter?ref=refs/tags/V-1.0.7";
       flake = false;
     };
   };
@@ -42,7 +42,7 @@
         chippy = "1.1.3";
         boxflinger = "1.0.13";
         depthfinder = "1.0.16";
-        dfn-mounter = "1.0.6";
+        dfn-mounter = "1.0.7";
       };
 
       makePackages =
