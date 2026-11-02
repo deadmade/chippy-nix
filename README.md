@@ -36,6 +36,12 @@ The dev shell provides `chippy`, `dfn`, and Go tooling, and sets:
 - `CHIP_LIB_PATH` to the packaged Chippy standard library plus Boxflinger
 - `CHIP_DOC_DIR` to the packaged Chippy documentation directory
 
+The package and development shell select Go from Chippy's pinned `go.mod`.
+When the default Go in nixpkgs is too old, they use the versioned toolchain
+for the required Go release. Automated updates retry with refreshed nixpkgs
+if needed; if that still lacks a sufficiently recent toolchain, the update fails
+with the required version rather than accepting a broken build.
+
 ## Use in Your Flake {#chippy-nix-use-in-your-flake}
 
 ```nix
@@ -119,6 +125,7 @@ Use it from your preferred Vim or Neovim Nix configuration by adding the package
 
 `nix flake check` evaluates all exported outputs and runs explicit smoke checks for:
 
+- Go toolchain selection and minimum version enforcement
 - `chippy` interpreter execution
 - `chippy-boxflinger` library installation
 - `chippy-nvim` runtime file layout

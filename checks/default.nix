@@ -31,6 +31,12 @@ let
   legacySessionVariables = builtins.toJSON legacyModuleEval.config.environment.sessionVariables;
 in
 {
+  go-toolchain =
+    assert import ../tests/go-toolchain.nix { inherit lib; };
+    pkgs.runCommand "chippy-go-toolchain" {} ''
+      touch "$out"
+    '';
+
   chippy-smoke = pkgs.runCommand "chippy-smoke" {
     nativeBuildInputs = [ packages.chippy ];
   } ''

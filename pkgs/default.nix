@@ -2,9 +2,13 @@
 
 let
   lib = pkgs.lib;
+  go = import ./go-toolchain.nix {
+    pkgs = pkgs.buildPackages;
+    goMod = builtins.readFile (chippySrc + "/go.mod");
+  };
 in
 rec {
-  chippy = pkgs.buildGoModule {
+  chippy = (pkgs.buildGoModule.override { inherit go; }) {
     pname = "chippy";
     version = versions.chippy;
 
@@ -16,7 +20,7 @@ rec {
       ../patches/0003-patch-combine-command-for-CHIP_LIB_PATH.patch
     ];
 
-    vendorHash = "sha256-Mqi9GMz7cRSmg7O/DB8IivoWkA9lHfE8gSDzLohUigY=";
+    vendorHash = "sha256-ahScY7vHz6ArYu6tPybQBw8i53mRfaKzJpvMxNFm2DE=";
     proxyVendor = true;
 
     excludedPackages = [

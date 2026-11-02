@@ -88,8 +88,8 @@ jobs:
         run: |
           msg="$BASE_MSG"
           # Upstream regularly raises the `go` directive in go.mod. The pinned
-          # nixpkgs then ships too old a Go and buildGoModule fails, so refresh
-          # nixpkgs once and retry before giving up.
+          # nixpkgs may lack a compatible toolchain even after selecting the
+          # versioned Go package, so refresh nixpkgs once and retry.
           if ! .github/build-all.sh; then
             echo "::warning::Build failed - refreshing nixpkgs for Go toolchain drift and retrying"
             nix flake update nixpkgs
@@ -164,7 +164,9 @@ jobs:
           )
           elif [ "$BUILD_OUTCOME" = "failure" ]; then
             reason=$(cat <<'EOF'
-          The build failed. The usual cause is a stale patch in `patches/`: upstream
+          The build failed. If the error names a required Go version, refreshed
+          nixpkgs still lacks a compatible toolchain; retry once it is available.
+          Another common cause is a stale patch in `patches/`: upstream
           restructured a file the series touches, so `patchPhase` rejects hunks.
           Regenerate the affected patches against the new tag from a real upstream
           checkout, and refresh `vendorHash` in `pkgs/default.nix` if `go.sum` changed.
