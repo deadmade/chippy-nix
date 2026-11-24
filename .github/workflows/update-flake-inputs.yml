@@ -61,7 +61,7 @@ jobs:
 
       - name: Install Nix
         if: steps.check.outputs.should_update == 'true'
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@v32
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
 
